@@ -1,0 +1,9 @@
+const String CHARACTER_URL = 'https://rickandmortyapi.com/api/character';
+const int SUCCESS = 200;
+const int NOT_FOUND = 404;
+const int SERVER_ERROR = 500;
+const int BAD_REQUEST = 400;
+const int UNAUTHORIZED = 401;
+const int FORBIDDEN = 403;
+const int NO_INTERNET = 101;
+const int TIME_OUT = 102;
