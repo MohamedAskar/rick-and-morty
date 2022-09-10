@@ -52,15 +52,23 @@ class HomePage extends ConsumerWidget {
         await viewModel.getCharachter(isRefresh: false);
         _refreshController.loadComplete();
       },
-      child: ListView.builder(
-        itemCount: viewModel.charachter.length,
-        physics: const ClampingScrollPhysics(),
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        itemBuilder: (context, index) {
-          return CharacterWidget(
-            character: viewModel.charachter[index],
-          );
-        },
+        child: Column(
+          children: [
+            ListView.builder(
+              itemCount: viewModel.charachter.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return CharacterWidget(
+                  character: viewModel.charachter[index],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
