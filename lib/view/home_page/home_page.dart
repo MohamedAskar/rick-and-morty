@@ -17,13 +17,16 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: ColorUtils.white,
       appBar: AppBar(
-        title: const Text('Rick and Morty'),
+        title: Image.asset(
+          'assets/img/logo.png',
+          scale: 2,
+        ),
         centerTitle: true,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: ColorUtils.blue,
-          statusBarIconBrightness: Brightness.light,
+          statusBarColor: ColorUtils.white,
+          statusBarIconBrightness: Brightness.dark,
         ),
-        backgroundColor: ColorUtils.blue,
+        backgroundColor: ColorUtils.white,
         elevation: 0,
       ),
       body: _ui(viewModel),
@@ -52,7 +55,7 @@ class HomePage extends ConsumerWidget {
       child: ListView.builder(
         itemCount: viewModel.charachter.length,
         physics: const ClampingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         itemBuilder: (context, index) {
           return CharacterWidget(
             character: viewModel.charachter[index],
