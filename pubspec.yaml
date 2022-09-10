@@ -15,6 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   flutter_riverpod: ^1.0.4
+  cached_network_image: ^3.1.0
+
+dependency_overrides:
+  pull_to_refresh:
+    git:
+      url: https://github.com/miquelbeltran/flutter_pulltorefresh
 
 dev_dependencies:
   flutter_test:

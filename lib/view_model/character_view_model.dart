@@ -11,7 +11,7 @@ final charachterProvider =
 
 class CharachterViewModel extends ChangeNotifier {
   Info? _info;
-  List<Character> _charachter = [];
+  final List<Character> _charachter = [];
   String? _error;
   bool _isLoading = false;
 
@@ -29,15 +29,19 @@ class CharachterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getCharachter({String? gender, String? status}) async {
-    setLoading(true);
-    String url =
-        (info != null) ? info!.next! : setUrl(gender: gender, status: status);
+  Future getCharachter(
+      {String? gender, String? status, bool isRefresh = true}) async {
+    if (isRefresh) {
+      setLoading(true);
+    }
+    String url = (info != null && !isRefresh)
+        ? info!.next!
+        : setUrl(gender: gender, status: status);
 
     final response = await CharachterServices.getCharachter(url);
     if (response is Success) {
       _info = response.data.info;
-      _charachter = response.data.charachters;
+      _charachter.addAll(response.data.charachters);
     }
     if (response is Failure) {
       _error = response.message;
