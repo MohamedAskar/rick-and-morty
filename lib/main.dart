@@ -19,22 +19,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends ConsumerStatefulWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
   @override
-  MainPageState createState() => MainPageState();
-}
-
-class MainPageState extends ConsumerState<MainPage> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(charachterProvider).getCharachter();
+  Widget build(BuildContext context, ref) {
+    final viewModel = ref.watch(charachterProvider);
+    return Scaffold(body: _ui(viewModel));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
+  _ui(CharachterViewModel viewModel) {
+    if (viewModel.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (viewModel.error != null) {
+      return Center(child: Text(viewModel.error!));
+    }
+    return ListView.builder(
+      itemCount: viewModel.charachter.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          onTap: () => viewModel.getCharachter(gender: 'Male'),
+          title: Text(viewModel.charachter[index].name),
+          subtitle: Text(viewModel.charachter[index].status),
+        );
+      },
+    );
   }
 }

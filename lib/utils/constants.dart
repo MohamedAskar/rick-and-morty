@@ -1,4 +1,5 @@
 const String CHARACTER_URL = 'https://rickandmortyapi.com/api/character';
+const String CHARACTER_PAGE_URL = 'https://rickandmortyapi.com/api/character?page=1';
 const int SUCCESS = 200;
 const int NOT_FOUND = 404;
 const int SERVER_ERROR = 500;

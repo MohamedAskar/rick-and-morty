@@ -1,5 +1,3 @@
-import 'package:rick_and_morty/models/charachteristics.dart';
-
 class Character {
   Character({
     required this.id,
@@ -20,8 +18,8 @@ class Character {
   final String name;
   final String species;
   final String type;
-  final CharachterStatus status;
-  final CharachterGender gender;
+  final String status;
+  final String gender;
   final CharacterLocation origin;
   final CharacterLocation location;
   final String image;
@@ -34,8 +32,8 @@ class Character {
         name: json["name"],
         species: json["species"],
         type: json["type"],
-        status: statusFromJson(json["status"]),
-        gender: genderFromJson(json["gender"]),
+        status: json["status"],
+        gender: json["gender"],
         origin: CharacterLocation.fromJson(json["origin"]),
         location: CharacterLocation.fromJson(json["location"]),
         image: json["image"],
@@ -47,10 +45,10 @@ class Character {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "status": status.name,
+        "status": status,
         "species": species,
         "type": type,
-        "gender": gender.name,
+        "gender": gender,
         "origin": origin.toJson(),
         "location": location.toJson(),
         "image": image,
