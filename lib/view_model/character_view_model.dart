@@ -5,11 +5,13 @@ import 'package:rick_and_morty/models/charachter.dart';
 import 'package:rick_and_morty/models/info.dart';
 import 'package:rick_and_morty/repository/character_services.dart';
 import 'package:rick_and_morty/utils/constants.dart';
-
-final charachterProvider =
-    ChangeNotifierProvider((ref) => CharachterViewModel());
+import 'package:rick_and_morty/view_model/providers.dart';
 
 class CharachterViewModel extends ChangeNotifier {
+  CharachterViewModel({required this.ref}) {
+    getCharachter();
+  }
+  final Ref ref;
   Info? _info;
   List<Character> _charachter = [];
   String? _error;
@@ -20,23 +22,19 @@ class CharachterViewModel extends ChangeNotifier {
   String? get error => _error;
   bool get isLoading => _isLoading;
 
-  CharachterViewModel() {
-    getCharachter();
-  }
-
   setLoading(bool value) {
     _isLoading = value;
     notifyListeners();
   }
 
-  Future getCharachter(
-      {String? gender, String? status, bool isRefresh = true}) async {
+  Future getCharachter({bool isRefresh = true}) async {
+    final filters = ref.watch(filterProvider);
     if (isRefresh) {
       setLoading(true);
     }
     String url = (info != null && !isRefresh)
         ? info!.next!
-        : setUrl(gender: gender, status: status);
+        : setUrl(gender: filters['Gender'], status: filters['Status']);
 
     final response = await CharachterServices.getCharachter(url);
     if (response is Success) {

@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:rick_and_morty/models/charachter.dart';
 import 'package:rick_and_morty/utils/text_style.dart';
+import 'package:rick_and_morty/view/home_page/widgets/character_detail_widget.dart';
+import 'package:rick_and_morty/view/home_page/widgets/dialogs.dart';
 
 class CharacterWidget extends StatelessWidget {
   final Character character;
@@ -14,7 +16,9 @@ class CharacterWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        showDialog(context: context, builder: (context) => _dialog(context));
+        showDialog(
+            context: context,
+            builder: (context) => characterDetailsDialog(context, character));
       },
       child: Container(
         width: double.maxFinite,
@@ -48,7 +52,8 @@ class CharacterWidget extends StatelessWidget {
                   CharacterDetailsWidget(
                       detail: character.status, icon: Ionicons.skull_outline),
                   CharacterDetailsWidget(
-                      detail: character.species, icon: Ionicons.person_outline),
+                      detail: character.gender,
+                      icon: Ionicons.male_female_outline),
                   CharacterDetailsWidget(
                       detail: character.location.name,
                       icon: Ionicons.planet_outline),
@@ -57,117 +62,6 @@ class CharacterWidget extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  _dialog(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: SizedBox(
-        width: size.width * 0.8,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Hero(
-              tag: character.id,
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: character.image,
-                      width: double.maxFinite,
-                      height: size.height * 0.4,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 22),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(character.name, style: CustomTextStyle.blackTitle),
-                  const SizedBox(height: 3),
-                  CharacterDetailsWidget(
-                      detail: 'Status: ${character.status}',
-                      icon: Ionicons.skull_outline),
-                  CharacterDetailsWidget(
-                      detail: 'Species: ${character.species}',
-                      icon: Ionicons.person_outline),
-                  CharacterDetailsWidget(
-                      detail: 'No. Episode: ${character.episode.length}',
-                      icon: Ionicons.tv_outline),
-                  CharacterDetailsWidget(
-                      detail:
-                          'Creation Date: ${DateFormat('MMM dd, yyyy').format(character.created)}',
-                      icon: Ionicons.today_outline),
-                  CharacterDetailsWidget(
-                      detail: (character.type.isEmpty)
-                          ? 'Type: Unknown'
-                          : 'Type: ${character.type}',
-                      icon: Ionicons.analytics_outline),
-                  CharacterDetailsWidget(
-                      detail: 'Origin: ${character.origin.name}',
-                      icon: Ionicons.planet_outline),
-                  CharacterDetailsWidget(
-                      detail: 'Current Location: ${character.location.name}',
-                      icon: Ionicons.location_outline),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CharacterDetailsWidget extends StatelessWidget {
-  const CharacterDetailsWidget({
-    Key? key,
-    required this.detail,
-    required this.icon,
-  }) : super(key: key);
-
-  final String detail;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon),
-          const SizedBox(width: 8),
-          Flexible(
-              child: Text(
-            detail,
-            style: CustomTextStyle.dp14MedBlack,
-            overflow: TextOverflow.clip,
-          )),
-        ],
       ),
     );
   }

@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^2.1.0
   ionicons: ^0.2.1
   intl: ^0.17.0
+  flutter_form_builder: ^6.0.0
 
 dependency_overrides:
   pull_to_refresh:
