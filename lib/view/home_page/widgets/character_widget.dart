@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:rick_and_morty/models/charachter.dart';
 import 'package:rick_and_morty/utils/text_style.dart';

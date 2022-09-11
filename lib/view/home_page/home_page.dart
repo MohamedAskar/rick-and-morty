@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:rick_and_morty/utils/colors.dart';
@@ -13,8 +10,6 @@ import 'package:rick_and_morty/view/home_page/widgets/filter_widget.dart';
 import 'package:rick_and_morty/view_model/character_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rick_and_morty/view_model/providers.dart';
-
-import 'widgets/Characteristics_form_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -104,7 +99,4 @@ class HomePageState extends ConsumerState<HomePage> {
       ),
     );
   }
-
-  
 }
-
